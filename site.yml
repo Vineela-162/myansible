@@ -1,7 +1,0 @@
-
-- hosts: testing
-  become: true
-  become_user: root
-  roles:
-   - apache
-   - tomcat

@@ -1,7 +1,0 @@
----
-- hosts: testing
-  become: true
-  become_user: root
-  tasks:
-   - name: Install nginx package
-     apt: name=nginx state=present
