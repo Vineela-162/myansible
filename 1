@@ -1,0 +1,7 @@
+---
+- hosts: testing
+  become: true
+  become_user: root
+  tasks:
+   - name: Install apache package
+     apt: name=apache state=present

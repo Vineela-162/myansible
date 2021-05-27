@@ -1,0 +1,16 @@
+---
+- hosts: testing
+  become: true
+  become_user: root
+  tasks:
+   - name: Install tomcat package
+     apt: name=tomcat9 state=present
+   - name: Start the tomcat service
+     service: name=tomcat9 state=started
+   - name: Deploy sample.war app onto tomcat server
+     copy: "src=/opt/playbooks/sample.war dest=/var/lib/tomcat9/webapps"
+     notify: restart tomcat
+  handlers:
+    - name: restart tomcat
+      service: name=tomcat9 state=restarted
+

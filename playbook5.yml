@@ -1,0 +1,18 @@
+---
+- hosts: testing
+  become: true
+  become_user: root
+  tasks:
+    - name: Install Git and Docker
+      apt: name={{item}} state=present
+      with_items:
+        - git
+        - docker
+    - name: Start the docker services
+      service: name=docker state=started
+    - name: Clone Git repository where dockerfile is present
+      git: repo=https://github.com/Vineela-162/AnsibleDockerdemo dest=/tmp/gitrepo1
+    - name: Build an image out of a dockerfile
+      command: chdir=/tmp/gitrepo1 docker build -t myimage:addressbook .
+    - name: Run a container out of an image
+      command: docker run -itd --name addressbook -P myimage:addressbook
